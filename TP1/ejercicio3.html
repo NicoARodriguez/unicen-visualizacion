@@ -20,9 +20,9 @@
     var imageData = ctx.createImageData(width, height);
     for (x=0; x<width; x++){
       for (y=0; y<height; y++){
-        r=((y*a)/height);
-        g=((y*a)/height);
-        b=((y*a)/height);
+        r=Math.round((y*a)/height);
+        g=Math.round((y*a)/height);
+        b=Math.round((y*a)/height);
         setPixel(imageData, x, y, r, g, b, a);
       }
     }
