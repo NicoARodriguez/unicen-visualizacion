@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Filtros de Imagenes</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="btn-group">
+      <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+              data-toggle="dropdown">
+        CARGAR <span class="caret"></span>
+      </button>
+
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="#"><span class="fa fa-desktop">
+      <label id="getFileLabel" for="getFile">ORDENADOR </label></span></a></li>
+      <li><a href="#"><span class="fa fa-facebook">
+        <label id="getFileLabel2" for="getFile2">FACEBOOK</label></span></a></li>
+      </ul>
+    </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+            data-toggle="dropdown">
+      GUARDAR <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a id="guardar" href="#"><span class="fa fa-desktop">
+      <label>ORDENADOR</span></label></a></li>
+    </ul>
+  </div>
+<div class="btn-group">
+  <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+          data-toggle="dropdown">
+    COMPARTIR <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#"><span class="fa fa-facebook">
+      <label id="getFileLabel2" for="getFile2">FACEBOOK</label></span></a></li>
+  </ul>
+</div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="containerCanvas">
+  <div class="col-md-6 col-xs-6">
+    <canvas id="canvas" width="600" height="450"></canvas>
+  </div>
+  <div class="col-md-6 col-xs-6">
+    <canvas id="canvasCopia" width="600" height="450"></canvas>
+  </div>
+</div>
+</div>
+      <div class="row">
+        <div class="achicar">
+        <div class="col-xs-12 col-md-offset-2 col-md-8">
+        <div id="carousel-example-generic" class="carousel slide"
+        data-ride="carousel" data-interval="10000">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+        <div class="row">
+          <div class="col-xs-4 col-md-4 caption">
+            <a href="#" class="thumbnail">
+              <img src="images/ubuntu.png" alt="original">
+            </a>
+            <div class="overlay original">
+          <div class="text">ORIGINAL</div>
+        </div>
+          </div>
+      <div class="col-xs-4 col-md-4 caption">
+        <a href="#" class="thumbnail">
+          <img src="images/ubuntu(bYn).png" alt="bYn">
+        </a>
+        <div class="overlay blancoYNegro">
+      <div class="text">Blanco y Negro
+      <input id="gris" type="range" name="edad" min="0" max="100" step="0" value="50">
+    </div>
+    </div>
+      </div>
+  <div class="col-xs-4 col-md-4 caption">
+    <a href="#" class="thumbnail">
+      <img src="images/ubuntu(grises).png" alt="grises">
+    </a>
+    <div class="overlay grises">
+  <div class="text">GRISES</div>
+</div>
+  </div>
+  </div>
+    </div>
+    <div class="item">
+        <div class="row">
+          <div class="col-xs-4 col-md-4 caption">
+            <a href="#pepe" class="thumbnail">
+              <img src="images/ubuntu(sepia).png" alt="sepia">
+            </a>
+            <div class="overlay sepia">
+          <div class="text">SEPIA</div>
+        </div>
+          </div>
+      <div class="col-xs-4 col-md-4 caption">
+        <a href="#" class="thumbnail">
+          <img src="images/ubuntu(negativo).png" alt="negativo">
+        </a>
+        <div class="overlay negativo">
+      <div style="color:grey;" class="text">NEGATIVO</div>
+    </div>
+      </div>
+  <div class="col-xs-4 col-md-4 caption">
+    <a href="#" class="thumbnail">
+      <img src="images/ubuntu(azul).png" alt="azul">
+    </a>
+    <div class="overlay azul">
+  <div class="text">AZUL</div>
+</div>
+  </div>
+  </div>
+    </div>
+    <div class="item">
+        <div class="row">
+          <div class="col-xs-4 col-md-4 caption">
+            <a href="#pepe" class="thumbnail">
+              <img src="images/ubuntu(binarizacion).png" alt="binarizacion">
+            </a>
+            <div class="overlay binarizacion">
+          <div class="text">BINARIZACION
+          </div>
+        </div>
+          </div>
+          <div class="col-xs-4 col-md-4 caption">
+            <a href="#pepe" class="thumbnail">
+              <img src="images/ubuntu(contraste).png" alt="contraste">
+            </a>
+            <div class="overlay contraste">
+          <div class="text">CONTRASTE
+           <input id="contrast" type="range" name="edad" min="-90" max="90" step="5" value="50">
+          </div>
+        </div>
+          </div>
+          <div class="col-xs-4 col-md-4 caption">
+            <a href="#pepe" class="thumbnail">
+              <img src="images/ubuntu(desenfocar).png" alt="desenfocar">
+              <!--<canvas id="canvas" width="260" height="165"></canvas>-->
+            </a>
+            <div class="overlay desenfocar">
+          <div class="text">DESENFOCAR
+          </div>
+        </div>
+          </div>
+  </div>
+    </div>
+    <div class="item">
+        <div class="row">
+          <div class="col-xs-4 col-md-4 caption">
+            <a href="#" class="thumbnail">
+              <img src="images/ubuntu.png" alt="">
+            </a>
+            <div class="overlay ">
+          <div class="text">otor</div>
+        </div>
+          </div>
+  </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+      </div>
+      </div>
+    </div>
+      </div>
+<input class="hidden" name="imagen" type="file" id="getFile" accept="image/png, .jpeg, .jpg, .png">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/filter.js" type="text/javascript">
+
+</script>
+</body>
+</html>
