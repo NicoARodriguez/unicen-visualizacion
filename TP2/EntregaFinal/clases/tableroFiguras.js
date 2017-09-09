@@ -26,15 +26,7 @@ function Cuadrado(ctx,x,y,rad,sides,startAngle,anticlockwise,color,bool){
    this.ctx.closePath();
    this.ctx.restore();
   }
-  /*context.beginPath();
-  polygon(context,350,350,100,8,0,false);
-  polygon(context,350,350,60,8,0,true);
-  context.fillStyle="rgba(227,11,93,0.75)";
-  context.shadowColor = 'rgba(0,0,0,0.75)';
-  context.shadowOffsetX = 8;
-  context.shadowOffsetY = 8;
-  context.shadowBlur = 10;
-  context.fill();*/
+
   Cuadrado.prototype.mover = function(x,y){
     this.posX = x;
     this.posY = y;
@@ -47,9 +39,7 @@ function Cuadrado(ctx,x,y,rad,sides,startAngle,anticlockwise,color,bool){
     arrPos.y = this.posY;
     return (arrPos);
   }
-
 }
-
 
 function Circle(x,y,radio,color,bool,ctx){
    this.posX = x;
@@ -120,7 +110,6 @@ function Estrella (x,y,R,L,paso,bool,color,ctx){
  }
 
 }
-
 
 function Polygon(x,y,tamanio,lados,paso,color,bool,ctx){
    this.posX = x;
@@ -436,9 +425,6 @@ arregloSolucion[6].x = 1150;
 arregloSolucion[6].y = 290;
 arregloSolucion[7].x = 1000;
 arregloSolucion[7].y = 290;
-
-
-
 
 listaFigurasCopy.agregar(circuloCopy);
 listaFigurasCopy.agregar(triangulo2Copy);
