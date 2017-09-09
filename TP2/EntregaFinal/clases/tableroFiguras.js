@@ -265,8 +265,6 @@ function ListFig(){
   }
 }
 
-let delta = new Object();
-
 function getDivisiones(width,height,cantPiezaX,cantPiezaY,canvas){
    let widthMax = canvas.width - width;
    let heightMax = canvas.height - height;
@@ -332,7 +330,6 @@ canvas.addEventListener("mousemove", function() {
   }
 });
 
-
 canvas.addEventListener("mouseup", function() {
    arrastrar = false;
    for (let i=0; i<figuras.length; i++){
@@ -376,14 +373,15 @@ function dibujarTablero(figuras,divisiones,cantPiezaX,cantPiezaY){
 
 ctx4 = document.getElementById('canvasTabFiguras').getContext('2d');
 listaFiguras = new ListFig();
-let circulo = new Circle(230,500, 60,'#0000ff',false,ctx4);
-let triangulo2 = new Triangle(300,300,'#0000ff',false,ctx4);
-let estrella = new Estrella(230,250,60,5,2,false,'#00ff00',ctx4);
-let poligono = new Polygon(110,100,60,3,2,'#ff00ff',false,ctx4);
-let poligono2 = new Cuadrado(ctx4,125,125,60,8,-Math.PI/2,false,"rgba(227,11,93,0.75)",false);
-let poligono3 = new Cuadrado(ctx4,350,125,60,6,-Math.PI/2,true,"rgba(51,128,255,0.75)",false);
-let poligono4 = new Cuadrado(ctx4,125,350,60,7,-Math.PI/2,false,"rgba(11,227,93,0.75)",false);
-let poligono5 = new Cuadrado(ctx4,350,350,60,4,-Math.PI/2,true,"rgba(227,11,93,0.75)",false);
+let circulo = new Circle(400,550, 60,'#0000ff',false,ctx4);
+let triangulo2 = new Triangle(650,550,'#0000ff',false,ctx4);
+let estrella = new Estrella(400,400,60,5,2,false,'#00ff00',ctx4);
+let poligono = new Polygon(250,550,60,3,2,'#ff00ff',false,ctx4);
+let poligono2 = new Cuadrado(ctx4,250,100,60,8,-Math.PI/2,false,"rgba(227,11,93,0.75)",false);
+let poligono3 = new Cuadrado(ctx4,400,100,60,6,-Math.PI/2,true,"rgba(51,128,255,0.75)",false);
+let poligono4 = new Cuadrado(ctx4,400,250,60,7,-Math.PI/2,false,"rgba(11,227,93,0.75)",false);
+let poligono5 = new Cuadrado(ctx4,250,250,60,4,-Math.PI/2,true,"rgba(227,11,93,0.75)",false);
+let poligono6 = new Cuadrado(ctx4,100,100,60,4,-Math.PI/2,true,"rgba(227,11,93,0.75)",false);
 
 
 listaFiguras.agregar(circulo);
@@ -394,6 +392,7 @@ listaFiguras.agregar(poligono2);
 listaFiguras.agregar(poligono3);
 listaFiguras.agregar(poligono4);
 listaFiguras.agregar(poligono5);
+listaFiguras.agregar(poligono6);
 listaFiguras.draw();
 figuras = listaFiguras.get();
 
@@ -402,6 +401,7 @@ let circuloCopy = new Circle(700,120, 60,'#ffffff',false,ctx4);
 let triangulo2Copy = new Triangle(900,175,'#ffffff',false,ctx4);
 let estrellaCopy = new Estrella(1010,130,60,5,2,false,'#ffffff',ctx4);
 let poligonoCopy = new Polygon(1140,130,60,3,2,'#ffffff',false,ctx4);
+
 let poligono2Copy = new Cuadrado(ctx4,700,290,60,8,-Math.PI/2,true,"rgba(255,255,255,255)",false);
 let poligono3Copy = new Cuadrado(ctx4,850,290,60,6,-Math.PI/2,false,"rgba(255,255,255,255)",false);
 let poligono5Copy = new Cuadrado(ctx4,1000,290,60,4,-Math.PI/2,false,"rgba(255,255,255,255)",false);
