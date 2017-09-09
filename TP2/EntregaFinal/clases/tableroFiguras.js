@@ -340,13 +340,20 @@ canvas.addEventListener("mouseup", function() {
         posFig = figuras[i].getPos();
          if ((Math.abs(posFig.x - arregloSolucion[i].x)<15) &&
               (Math.abs(posFig.y - arregloSolucion[i].y)<15)){
+                piezasColocadas++;
                 ctx4.clearRect(0, 0, canvas.width, canvas.height);
                 figuras[i].mover(arregloSolucion[i].x,arregloSolucion[i].y);
               }
       }
-      listaFigurasCopy.draw();
-      listaFiguras.draw();
    }
+   if (piezasColocadas == figuras.length){
+     let mensaje = document.getElementById('mensaje');
+     mensaje.innerHTML = 'Ganaste';
+     listaFigurasCopy.draw();
+     listaFiguras.draw();
+   }
+   listaFigurasCopy.draw();
+   listaFiguras.draw();
 });
 
 canvas.addEventListener('mouseout', function(evt) {
@@ -400,6 +407,7 @@ let poligono3Copy = new Cuadrado(ctx4,850,290,60,6,-Math.PI/2,false,"rgba(255,25
 let poligono5Copy = new Cuadrado(ctx4,1000,290,60,4,-Math.PI/2,false,"rgba(255,255,255,255)",false);
 let poligono4Copy = new Cuadrado(ctx4,1150,290,60,7,-Math.PI/2,false,"rgba(255,255,255,255)",false);
 
+let piezasColocadas = 0;
 let arregloSolucion = new Array();
 arregloSolucion[0] = new Array();
 arregloSolucion[1] = new Array();
