@@ -136,34 +136,6 @@ function Color(){
  }
 }
 
-function Tablero(figuras,cantX,cantY){
-   this.figuras = new ListFig();
-   this.color = new Color();
-   this.ctx = document.getElementById('canvasTabFiguras').getContext('2d');
-   this.canvas = document.getElementById('canvasTabFiguras');
-   this.cantFigX = cantX;
-   this.cantFigY = cantY;
-
-   const cuadrado = 0;
-   const triangulo = 1;
-   const poligono = 2;
-   const circulo = 3;
-
- Tablero.prototype.dibujarFig = function(){
-   figura = 1;
-   random = 2;
-   switch (random) {
-     case 1:
-        let triangulo = new Triangle(0,0,'#ff0000',this.ctx);
-        triangulo.dibujar();
-        break;
-      case 2:
-        break;
-     default:
-   }
-  }
-}
-
 function ListFig(){
   this.figuras = [];
 
