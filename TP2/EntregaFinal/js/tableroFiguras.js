@@ -242,7 +242,7 @@ function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
          width+=150
          contador++;
           if (width > canvas.width/2 + (cantPiezaX-1) * 150){
-            width = 700;
+            width = canvas.width/2;
           }
           if (contador % cantPiezaX == 0){
             height+=150;
