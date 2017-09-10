@@ -184,15 +184,6 @@ function ListFig(){
 
 let piezasColocadas = 0;
 
-
-function mostrarDivisiones(divisiones){
-  for (let i=0; i<4; i++){
-    for (let k=0; k<1; k++){
-      alert(divisiones[i][k].width + ' ' + ' ' + divisiones[i][k].height);
-    }
-  }
-}
-
 function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
 
   function crearFigurasAleatorias(divisiones,cantPiezaX,cantPiezaY){
