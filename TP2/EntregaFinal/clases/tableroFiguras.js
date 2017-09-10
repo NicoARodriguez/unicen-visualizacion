@@ -183,31 +183,7 @@ function ListFig(){
 }
 
 let piezasColocadas = 0;
-let arregloSolucion = new Array();
-arregloSolucion[0] = new Array();
-arregloSolucion[1] = new Array();
-arregloSolucion[2] = new Array();
-arregloSolucion[3] = new Array();
-arregloSolucion[4] = new Array();
-arregloSolucion[5] = new Array();
-arregloSolucion[6] = new Array();
-arregloSolucion[7] = new Array();
-arregloSolucion[0].x = 700;
-arregloSolucion[0].y = 120;
-arregloSolucion[1].x = 900;
-arregloSolucion[1].y = 175;
-arregloSolucion[2].x = 1010;
-arregloSolucion[2].y = 130;
-arregloSolucion[3].x = 1140;
-arregloSolucion[3].y = 130;
-arregloSolucion[4].x = 700;
-arregloSolucion[4].y = 290;
-arregloSolucion[5].x = 850;
-arregloSolucion[5].y = 290;
-arregloSolucion[6].x = 1150;
-arregloSolucion[6].y = 290;
-arregloSolucion[7].x = 1000;
-arregloSolucion[7].y = 290;
+
 
 function mostrarDivisiones(divisiones){
   for (let i=0; i<4; i++){
@@ -220,7 +196,7 @@ function mostrarDivisiones(divisiones){
 function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
 
   function crearFigurasAleatorias(divisiones,cantPiezaX,cantPiezaY){
-     let totalPiezas = cantPiezaX + cantPiezaY;
+     let pieza = 0;
      let colorObj = new Color();
      let salio = false;
      for (let px=0; px<cantPiezaX; px++){
@@ -255,6 +231,10 @@ function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
            posY,radio,lados,-Math.PI/2,true,color,false);
           figurasJuego.agregar(poligonoCopy);
        }
+       arregloSolucion[pieza] = new Array();
+       arregloSolucion[pieza].x = divisiones[px][py].width;
+       arregloSolucion[pieza].y = divisiones[px][py].height;
+       pieza++;
        }
      }
   }
@@ -388,7 +368,7 @@ function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
         figuras[i].dibujar();
     }
   }
-
+  let arregloSolucion = new Array();
   let cantPiezaX = 4;
   piezasY = cantPiezaY;
   let divisiones = divideCanvas(dificultad);
@@ -413,22 +393,18 @@ function setDificultad(){
     case 'easy':
       cantPiezaY = 1;
       jugar(ctx,tabFiguras,figurasJuego,cantPiezaY,dificultad);
-      ctx4.clearRect(0, 0, canvas.width, canvas.height);
       break;
     case 'normal':
        cantPiezaY = 2;
        jugar(ctx,tabFiguras,figurasJuego,cantPiezaY,dificultad);
-       ctx4.clearRect(0, 0, canvas.width, canvas.height);
       break;
     case 'hard':
       cantPiezaY = 3;
       jugar(ctx,tabFiguras,figurasJuego,cantPiezaY,dificultad);
-      ctx4.clearRect(0, 0, canvas.width, canvas.height);
-      break;
+            break;
     default:
      cantPiezaY = 1;
      jugar(ctx,tabFiguras,cantPiezaY,dificultad);
-     ctx4.clearRect(0, 0, canvas.width, canvas.height);
   }
 }
 
