@@ -1,4 +1,4 @@
-function Cuadrado(ctx,x,y,rad,sides,startAngle,anticlockwise,color,bool){
+function Polygon(ctx,x,y,rad,sides,startAngle,anticlockwise,color,bool){
   this.ctx = ctx;
   this.bool = bool;
   this.posX = x;
@@ -9,7 +9,7 @@ function Cuadrado(ctx,x,y,rad,sides,startAngle,anticlockwise,color,bool){
   this.anticlock = anticlockwise;
   this.color = color;
 
-  Cuadrado.prototype.dibujar = function() {
+  Polygon.prototype.dibujar = function() {
    if (this.sides < 3) return;
     let a = (Math.PI * 2)/this.sides;
    a = this.anticlock?-a:a;
@@ -27,13 +27,13 @@ function Cuadrado(ctx,x,y,rad,sides,startAngle,anticlockwise,color,bool){
    this.ctx.restore();
   }
 
-  Cuadrado.prototype.mover = function(x,y){
+  Polygon.prototype.mover = function(x,y){
     this.posX = x;
     this.posY = y;
     this.dibujar();
   }
 
-  Cuadrado.prototype.getPos = function(){
+  Polygon.prototype.getPos = function(){
     let arrPos = new Array();
     arrPos.x = this.posX;
     arrPos.y = this.posY;
@@ -187,10 +187,10 @@ function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
          else{
          let lados = Math.round(Math.random() * (12 - 3) + 3);
          let radio = 60;
-         let poligono = new Cuadrado(ctx4,divisiones[px][py].width,
+         let poligono = new Polygon(ctx4,divisiones[px][py].width,
            divisiones[px][py].height,radio,lados,-Math.PI/2,true,'#ffffff',false);
            tabFiguras.agregar(poligono);
-         let poligonoCopy = new Cuadrado(ctx4,posX,
+         let poligonoCopy = new Polygon(ctx4,posX,
            posY,radio,lados,-Math.PI/2,true,color,false);
           figurasJuego.agregar(poligonoCopy);
        }
