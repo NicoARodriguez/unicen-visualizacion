@@ -111,89 +111,6 @@ function Estrella (x,y,R,L,paso,bool,color,ctx){
 
 }
 
-function Polygon(x,y,tamanio,lados,paso,color,bool,ctx){
-   this.posX = x;
-   this.posY = y;
-   this.color = color;
-   this.R = tamanio;
-   this.lados = lados;
-   this.paso = paso;
-   this.ctx = ctx;
-   this.bool = bool;
-
- Polygon.prototype.dibujar = function(){
-   this.ctx.save();
-   this.ctx.fillStyle = this.color;
-   this.ctx.strokeStyle = "black";
-   this.ctx.lineWidth = 3;
-   let polygon = lados/paso;
-   let rad = (2*Math.PI)/polygon;
-   this.ctx.beginPath();
-      for(i = 0; i < lados; i++ ){
-      x = this.posX + this.R * Math.cos(rad*i);
-      y = this.posY + this.R * Math.sin(rad*i);
-      this.ctx.lineTo(x, y);
-      }
-   this.ctx.closePath()
-   this.ctx.fill();
-   this.ctx.stroke();
- }
-
- Polygon.prototype.mover = function(x,y){
-  this.posX = x;
-  this.posY = y;
-  this.dibujar();
- }
-
- Polygon.prototype.getPos = function(){
-   let arrPos = new Array();
-   arrPos.x = this.posX;
-   arrPos.y = this.posY;
-   return (arrPos);
- }
-
- Polygon.prototype.getPos = function(){
-   let arrPos = new Array();
-   arrPos.x = this.posX;
-   arrPos.y = this.posY;
-   return (arrPos);
- }
-
-}
-
-
-function Triangle(x,y,color,bool,ctx){
-  this.posX = x;
-  this.posY = y;
-  this.color = color;
-  this.ctx = ctx;
-  this.bool = bool;
-
- Triangle.prototype.dibujar = function(){
-  this.ctx.strokeStyle = "#00ff00";
-  this.ctx.fillStyle = this.color;
-  this.ctx.beginPath();
-  this.ctx.moveTo(this.posX,this.posY);
-  this.ctx.lineTo(this.posX,this.posY-100);
-  this.ctx.lineTo(this.posX-100,this.posY);
-  this.ctx.closePath();
-  this.ctx.fill();
- }
-
- Triangle.prototype.mover = function(x,y){
-  this.posX = x;
-  this.posY = y;
-  this.dibujar();
- }
-
- Triangle.prototype.getPos = function(){
-   let arrPos = new Array();
-   arrPos.x = this.posX;
-   arrPos.y = this.posY;
-   return (arrPos);
- }
-}
-
 function Color(){
   this.hexadecimal = new Array
   ("0","1","2","3","4","5","6","7",
@@ -209,10 +126,10 @@ function Color(){
  }
 
 
- Color.prototype.dame_color_aleatorio = function(){
+ Color.prototype.getColor = function(){
    color_aleatorio = "#";
    for (i=0;i<6;i++){
-      posarray = aleatorio(0,this.hexadecimal.length)
+      posarray = this.aleatorio(0,this.hexadecimal.length)
       color_aleatorio += this.hexadecimal[posarray]
    }
    return color_aleatorio
@@ -265,34 +182,95 @@ function ListFig(){
   }
 }
 
+function crearFigurasAleatorias(divisiones,cantPiezaX,cantPiezaY){
+   let totalPiezas = cantPiezaX + cantPiezaY;
+   let colorObj = new Color();
+   let salio = false;
+   for (let px=0; px<cantPiezaX; px++){
+     for (let py=0; py<cantPiezaY; py++){
+       let color = colorObj.getColor();
+       let figuraAzar = Math.round(Math.random() * (4 - 0) +0);
+       let posX = Math.round(Math.random() * (500 - 100) + 100);
+       let posY = Math.round(Math.random() * (500 - 100) + 100);
+       if (figuraAzar == 1 && salio==false){
+         let estrella = new Estrella(divisiones[px][py].width,
+           divisiones[px][py].height,60,5,2,false,'#ffffff',ctx4);
+           tabFiguras.agregar(estrella);
+          let estrellaCopy = new Estrella(posX,posY,60,5,2,false,color,ctx4);
+          figurasJuego.agregar(estrellaCopy);
+          salio=true;
+       }
+       else if (figuraAzar == 2 && salio==false){
+         let circulo = new Circle(divisiones[px][py].width,
+           divisiones[px][py].height,60,'#ffffff',false,ctx4);
+           tabFiguras.agregar(circulo);
+          let circuloCopy = new Circle(posX,posY,60,color,false,ctx4);
+          figurasJuego.agregar(circuloCopy);
+          salio=true;
+       }
+       else{
+       let lados = Math.round(Math.random() * (12 - 3) + 3);
+       let radio = 60;
+       let poligono = new Cuadrado(ctx4,divisiones[px][py].width,
+         divisiones[px][py].height,radio,lados,-Math.PI/2,true,'#ffffff',false);
+         tabFiguras.agregar(poligono);
+       let poligonoCopy = new Cuadrado(ctx4,posX,
+         posY,radio,lados,-Math.PI/2,true,color,false);
+        figurasJuego.agregar(poligonoCopy);
+     }
+     }
+   }
+}
+
 function getDivisiones(width,height,cantPiezaX,cantPiezaY,canvas){
-   let widthMax = canvas.width - width;
-   let heightMax = canvas.height - height;
-   let canvasDiv = new Array();
-   let pos = 0;
-  for (let i=width; i<canvas.width; i+=width/cantPiezaX){
-    canvasDiv[pos] = new Array();
-    canvasDiv[pos].widthMin = i;
-    canvasDiv[pos].widthMax = i + width/cantPiezaX;
-    pos+=1;
-  }
-   pos=0;
-  for (let k=70; k<canvas.height; k+=height/cantPiezaY){
-    canvasDiv[pos].heightMin = k;
-    canvasDiv[pos].heightMax = k + height/cantPiezaY;
-    pos+=1;
-  }
+   let canvasDiv = new Array(cantPiezaX);
+   let contador = 0;
+   for (let k=0; k<cantPiezaX; k++){
+     canvasDiv[k] = new Array(cantPiezaY);
+     for (let i=0; i<cantPiezaY; i++){
+       canvasDiv[k][i] = new Array();
+       canvasDiv[k][i].width = width;
+       canvasDiv[k][i].height = height;
+       width+=150
+       contador++;
+        if (width > canvas.width/2 + (cantPiezaX-1) * 150){
+          width = 700;
+        }
+        if (contador % cantPiezaX == 0){
+          height+=150;
+        }
+     }
+   }
   return canvasDiv;
 }
 
-function divideCanvas(){
+function divideCanvas(dificultad){
   let cantPiezaX = 4;
-  let cantPiezaY = 2;
+  let cantPiezaY = 0;
+
+  if (dificultad == 'easy'){
+    cantPiezaY = 1;
+  }
+  if (dificultad == 'normal'){
+    cantPiezaY = 2;
+  }
+  if (dificultad == 'hard'){
+    cantPiezaY = 3;
+  }
   let canvasAdiv = document.getElementById('canvasTabFiguras');
-  let width = canvasAdiv.width/2;
-  let height = canvasAdiv.height/2;
+  let width = canvas.width/2;
+  let height = 140;
   let divisiones = getDivisiones(width,height,cantPiezaX,cantPiezaY,canvasAdiv);
   return divisiones;
+}
+
+function colocarFormasAzar(figuras){
+ for (let i=0; i<figuras.length; i++){
+  let posX = Math.round(Math.random() * (500 - 100) + 100);
+  let posY = Math.round(Math.random() * (500 - 100)) + 100;
+  figuras[i].dibujar();
+  figuras[i].mover(posX,posY);
+ }
 }
 
 let arrastrar = false;
@@ -303,17 +281,19 @@ canvas.addEventListener("mousedown", function(){
   for (var i=0; i<figuras.length; i++){
     figuras[i].dibujar();
     if (ctx4.isPointInPath(mx,my)){
-       ctx4.clearRect(0,0,canvas.width,canvas.height);
+       //ctx4.clearRect(0,0,canvas.width,canvas.height);
        figuras[i].bool = true;
        arrastrar=true;
+       tabFiguras.draw();
+
     }
     else {
       figuras[i].bool =false;
     }
   }
-  ctx4.clearRect(0,0,canvas.width,canvas.height);
-  listaFigurasCopy.draw();
-  listaFiguras.draw();
+  //ctx4.clearRect(0,0,canvas.width,canvas.height);
+  tabFiguras.draw();
+  figurasJuego.draw();
 });
 
 canvas.addEventListener("mousemove", function() {
@@ -325,8 +305,8 @@ canvas.addEventListener("mousemove", function() {
       figuras[i].mover(X,Y);
     }
    }
-   listaFigurasCopy.draw();
-   listaFiguras.draw();
+   tabFiguras.draw();
+   figurasJuego.draw();
   }
 });
 
@@ -346,66 +326,31 @@ canvas.addEventListener("mouseup", function() {
    if (piezasColocadas == figuras.length){
      let mensaje = document.getElementById('mensaje');
      mensaje.innerHTML = 'Ganaste';
-     listaFigurasCopy.draw();
-     listaFiguras.draw();
+     tabFiguras.draw();
+     figurasJuego.draw();
    }
-   listaFigurasCopy.draw();
-   listaFiguras.draw();
+   tabFiguras.draw();
+   figurasJuego.draw();
 });
 
-canvas.addEventListener('mouseout', function(evt) {
+canvas.addEventListener('mouseout', function() {
       arrastrar = false;
       for (let i = 0; i < figuras.length; i++) {
         figuras[i].bool = false
       }
       ctx4.clearRect(0, 0, canvas.width, canvas.height);
-      listaFigurasCopy.draw();
-      listaFiguras.draw();
+      tabFiguras.draw();
+      figurasJuego.draw();
 });
 
 
-function dibujarTablero(figuras,divisiones,cantPiezaX,cantPiezaY){
-  let py = 70;
+function dibujarTablero(figuras,divisiones){
   for (let i=0; i<figuras.length; i++){
       figuras[i].dibujar();
   }
 }
 
 ctx4 = document.getElementById('canvasTabFiguras').getContext('2d');
-listaFiguras = new ListFig();
-let circulo = new Circle(400,550, 60,'#0000ff',false,ctx4);
-let triangulo2 = new Triangle(650,550,'#0000ff',false,ctx4);
-let estrella = new Estrella(400,400,60,5,2,false,'#00ff00',ctx4);
-let poligono = new Polygon(250,550,60,3,2,'#ff00ff',false,ctx4);
-let poligono2 = new Cuadrado(ctx4,250,100,60,8,-Math.PI/2,false,"rgba(227,11,93,0.75)",false);
-let poligono3 = new Cuadrado(ctx4,400,100,60,6,-Math.PI/2,true,"rgba(51,128,255,0.75)",false);
-let poligono4 = new Cuadrado(ctx4,400,250,60,7,-Math.PI/2,false,"rgba(11,227,93,0.75)",false);
-let poligono5 = new Cuadrado(ctx4,250,250,60,4,-Math.PI/2,true,"rgba(227,11,93,0.75)",false);
-let poligono6 = new Cuadrado(ctx4,100,100,60,4,-Math.PI/2,true,"rgba(227,11,93,0.75)",false);
-
-
-listaFiguras.agregar(circulo);
-listaFiguras.agregar(triangulo2);
-listaFiguras.agregar(estrella);
-listaFiguras.agregar(poligono);
-listaFiguras.agregar(poligono2);
-listaFiguras.agregar(poligono3);
-listaFiguras.agregar(poligono4);
-listaFiguras.agregar(poligono5);
-listaFiguras.agregar(poligono6);
-listaFiguras.draw();
-figuras = listaFiguras.get();
-
-listaFigurasCopy = new ListFig();
-let circuloCopy = new Circle(700,120, 60,'#ffffff',false,ctx4);
-let triangulo2Copy = new Triangle(900,175,'#ffffff',false,ctx4);
-let estrellaCopy = new Estrella(1010,130,60,5,2,false,'#ffffff',ctx4);
-let poligonoCopy = new Polygon(1140,130,60,3,2,'#ffffff',false,ctx4);
-
-let poligono2Copy = new Cuadrado(ctx4,700,290,60,8,-Math.PI/2,true,"rgba(255,255,255,255)",false);
-let poligono3Copy = new Cuadrado(ctx4,850,290,60,6,-Math.PI/2,false,"rgba(255,255,255,255)",false);
-let poligono5Copy = new Cuadrado(ctx4,1000,290,60,4,-Math.PI/2,false,"rgba(255,255,255,255)",false);
-let poligono4Copy = new Cuadrado(ctx4,1150,290,60,7,-Math.PI/2,false,"rgba(255,255,255,255)",false);
 
 let piezasColocadas = 0;
 let arregloSolucion = new Array();
@@ -434,14 +379,19 @@ arregloSolucion[6].y = 290;
 arregloSolucion[7].x = 1000;
 arregloSolucion[7].y = 290;
 
-listaFigurasCopy.agregar(circuloCopy);
-listaFigurasCopy.agregar(triangulo2Copy);
-listaFigurasCopy.agregar(estrellaCopy);
-listaFigurasCopy.agregar(poligonoCopy);
-listaFigurasCopy.agregar(poligono2Copy);
-listaFigurasCopy.agregar(poligono3Copy);
-listaFigurasCopy.agregar(poligono5Copy);
-listaFigurasCopy.agregar(poligono4Copy);
-figurasCopy = listaFigurasCopy.get();
-divisiones = divideCanvas();
-dibujarTablero(figurasCopy,divisiones,4,2);
+function mostrarDivisiones(divisiones){
+  for (let i=0; i<4; i++){
+    for (let k=0; k<1; k++){
+      alert(divisiones[i][k].width + ' ' + ' ' + divisiones[i][k].height);
+    }
+  }
+}
+
+let tabFiguras = new ListFig();
+let figurasJuego = new ListFig();
+divisiones = divideCanvas('normal');
+crearFigurasAleatorias(divisiones,4,2);
+tabFiguras.draw();
+figurasJuego.draw();
+figurasTab = tabFiguras.get();
+figuras = figurasJuego.get();
