@@ -290,6 +290,24 @@ function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
     }
   });
 
+function mostrarMensaje(){
+  ctx4.clearRect(0, 0, canvas.width, canvas.height);
+  var c = document.getElementById('canvasCopy');
+  var ctx = c.getContext("2d");
+  var cp = document.getElementById('canvasTabFiguras');
+  var ctxp = cp.getContext('2d');
+  ctx.font = "30px Verdana";
+  // Create gradient
+  var gradient = ctx.createLinearGradient(0, 0, c.width, 0);
+  gradient.addColorStop("0.1", "magenta");
+  gradient.addColorStop("0.5", "yellow");
+  gradient.addColorStop("1.0", "red");
+  // Fill with gradient
+  ctx.fillStyle = gradient;
+  ctx.fillText("GANASTE!!!",c.width/2, c.height/2);
+  ctxp.drawImage(c,0,0);
+}
+
   canvas.addEventListener("mouseup", function() {
      arrastrar = false;
      for (let i=0; i<figuras.length; i++){
@@ -300,14 +318,11 @@ function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
                   piezasColocadas++;
                   ctx4.clearRect(0, 0, canvas.width, canvas.height);
                   figuras[i].mover(arregloSolucion[i].x,arregloSolucion[i].y);
+                  if (piezasColocadas == figuras.length){
+                    mostrarMensaje();
+                  }
                 }
         }
-     }
-     if (piezasColocadas == figuras.length){
-       let mensaje = document.getElementById('mensaje');
-       mensaje.innerHTML = 'Ganaste';
-       tabFiguras.draw();
-       figurasJuego.draw();
      }
      ctx4.clearRect(0, 0, canvas.width, canvas.height);
      tabFiguras.draw();
