@@ -359,8 +359,8 @@ function mostrarMensaje(){
      for (let i=0; i<figuras.length; i++){
         if (figuras[i].bool){
           posFig = figuras[i].getPos();
-           if ((Math.abs(posFig.x - arregloSolucion[i].x)<15) &&
-                (Math.abs(posFig.y - arregloSolucion[i].y)<15)){
+           if ((Math.abs(posFig.x - arregloSolucion[i].x)<5) &&
+                (Math.abs(posFig.y - arregloSolucion[i].y)<5)){
                   piezasColocadas++;
                   ctx4.clearRect(0, 0, canvas.width, canvas.height);
                   figuras[i].mover(arregloSolucion[i].x,arregloSolucion[i].y);
