@@ -36,6 +36,7 @@ function Polygon(ctx,x,y,rad,sides,startAngle,anticlockwise,color,bool){
   this.angle = startAngle,
   this.anticlock = anticlockwise;
   this.color = color;
+  this.colocada = false;
 
   Polygon.prototype.dibujar = function() {
    if (this.sides < 3) return;
@@ -67,6 +68,15 @@ function Polygon(ctx,x,y,rad,sides,startAngle,anticlockwise,color,bool){
     arrPos.y = this.posY;
     return (arrPos);
   }
+
+  Polygon.prototype.setColocada = function(){
+    this.colocada = true;
+  }
+
+  Polygon.prototype.getColocada = function(){
+    return this.colocada;
+  }
+
 }
 
 function Circle(x,y,radio,color,bool,ctx){
@@ -98,6 +108,15 @@ function Circle(x,y,radio,color,bool,ctx){
    arrPos.y = this.posY;
    return (arrPos);
  }
+
+ Circle.prototype.setColocada = function(){
+   this.colocada = true;
+ }
+
+ Circle.prototype.getColocada = function(){
+   return this.colocada;
+ }
+
 }
 
 function Estrella (x,y,R,L,paso,bool,color,ctx){
@@ -135,6 +154,14 @@ function Estrella (x,y,R,L,paso,bool,color,ctx){
    arrPos.x = this.posX;
    arrPos.y = this.posY;
    return (arrPos);
+ }
+
+ Estrella.prototype.setColocada = function(){
+   this.colocada = true;
+ }
+
+ Estrella.prototype.getColocada = function(){
+   return this.colocada;
  }
 
 }
@@ -361,7 +388,10 @@ function mostrarMensaje(){
           posFig = figuras[i].getPos();
            if ((Math.abs(posFig.x - arregloSolucion[i].x)<5) &&
                 (Math.abs(posFig.y - arregloSolucion[i].y)<5)){
-                  piezasColocadas++;
+                  if (!figuras[i].getColocada()){
+                    piezasColocadas++;
+                    figuras[i].setColocada();
+                  }
                   ctx4.clearRect(0, 0, canvas.width, canvas.height);
                   figuras[i].mover(arregloSolucion[i].x,arregloSolucion[i].y);
                   if (piezasColocadas == figuras.length){
