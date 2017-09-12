@@ -1,3 +1,31 @@
+let cronometro;
+
+let b = document.getElementsByTagName("body")[0];
+b.addEventListener("load",cargaCronometro());
+function detener(){
+   clearInterval(cronometro);
+}
+
+function cargaCronometro(){
+ let contador_segundos = 0;
+ let contador_minutos = 0;
+ let seg = document.getElementById('segundos');
+ let min = document.getElementById('minutos');
+   cronometro = setInterval(function (){
+    if (contador_segundos == 60){
+      contador_segundos = 0;
+      contador_minutos++;
+      min.innerHTML = contador_minuto;
+      if (contador_minutos == 60){
+        contador_minutos = 0;
+      }
+    }
+    seg.innerHTML = contador_segundos;
+    contador_segundos++;
+  }
+  ,1000);
+}
+
 function Polygon(ctx,x,y,rad,sides,startAngle,anticlockwise,color,bool){
   this.ctx = ctx;
   this.bool = bool;
@@ -154,6 +182,15 @@ function ListFig(){
   }
 }
 
+function isRepeat(usados,lados){
+  for (let i=0; i<usados.length; i++){
+    if (usados[i] == lados){
+      return true;
+    }
+  }
+  return false;
+}
+
 let piezasColocadas = 0;
 
 function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
@@ -162,6 +199,8 @@ function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
      let pieza = 0;
      let colorObj = new Color();
      let salio = false;
+     let usados = new Array();
+     let repeat = false;
      for (let px=0; px<cantPiezaX; px++){
        for (let py=0; py<cantPiezaY; py++){
          let color = colorObj.getColor();
@@ -185,14 +224,18 @@ function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
             salio=true;
          }
          else{
-         let lados = Math.round(Math.random() * (12 - 3) + 3);
-         let radio = 60;
-         let poligono = new Polygon(ctx4,divisiones[px][py].width,
-           divisiones[px][py].height,radio,lados,-Math.PI/2,true,'#ffffff',false);
-           tabFiguras.agregar(poligono);
-         let poligonoCopy = new Polygon(ctx4,posX,
-           posY,radio,lados,-Math.PI/2,true,color,false);
-          figurasJuego.agregar(poligonoCopy);
+         let lados = Math.round(Math.random() * (16 - 3) + 3);
+                while (isRepeat(usados,lados)){
+                  lados = Math.round(Math.random() * (12 - 3) + 3);
+                }
+                usados.push(lados);
+                let radio = 60;
+                let poligono = new Polygon(ctx4,divisiones[px][py].width,
+                  divisiones[px][py].height,radio,lados,-Math.PI/2,true,'#ffffff',false);
+                  tabFiguras.agregar(poligono);
+                let poligonoCopy = new Polygon(ctx4,posX,
+                  posY,radio,lados,-Math.PI/2,true,color,false);
+                  figurasJuego.agregar(poligonoCopy);
        }
        arregloSolucion[pieza] = new Array();
        arregloSolucion[pieza].x = divisiones[px][py].width;
@@ -306,6 +349,9 @@ function mostrarMensaje(){
   ctx.fillStyle = gradient;
   ctx.fillText("GANASTE!!!",c.width/2, c.height/2);
   ctxp.drawImage(c,0,0);
+  let msj = document.getElementById('msj');
+  detener();
+  msj.innerHTML = 'FELICIDADES GANASTE';
 }
 
   canvas.addEventListener("mouseup", function() {
@@ -370,14 +416,20 @@ function setDificultad(){
   switch (dificultad) {
     case 'easy':
       cantPiezaY = 1;
+      detener();
+      cargaCronometro();
       jugar(ctx,tabFiguras,figurasJuego,cantPiezaY,dificultad);
       break;
     case 'normal':
        cantPiezaY = 2;
+       detener();
+       cargaCronometro();
        jugar(ctx,tabFiguras,figurasJuego,cantPiezaY,dificultad);
       break;
     case 'hard':
       cantPiezaY = 3;
+      detener();
+      cargaCronometro();
       jugar(ctx,tabFiguras,figurasJuego,cantPiezaY,dificultad);
             break;
     default:
