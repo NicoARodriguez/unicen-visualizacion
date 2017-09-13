@@ -12,8 +12,6 @@
   <body>
         <canvas id="canvasTabFiguras" width="1360" height="600"
         style="background: yellow;"></canvas>
-        <canvas class="hidden" id="canvasCopy" width="1360" height="600"
-        style="background: black;"></canvas>
         <div class="">
           <select id="dificultad">
              <option value="easy">Facil</option>
@@ -22,6 +20,7 @@
           </select>
           Tiempo transcurrido: <span id="minutos">0</span>:<span id="segundos">0</span>
           <span id="msj"></span>
+          <button type="button" id="restart" onclick="setDificultad()" name="restart">Volver a jugar</button>
         </div>
   </body>
   <footer>

@@ -1,4 +1,5 @@
 let cronometro;
+let btn = document.getElementById('restart');
 
 let b = document.getElementsByTagName("body")[0];
 b.addEventListener("load",cargaCronometro());
@@ -362,21 +363,19 @@ function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
   });
 
 function mostrarMensaje(){
-  ctx4.clearRect(0, 0, canvas.width, canvas.height);
-  var c = document.getElementById('canvasCopy');
-  var ctx = c.getContext("2d");
-  var cp = document.getElementById('canvasTabFiguras');
-  var ctxp = cp.getContext('2d');
+  btn.removeAttribute('class');
+  let canvas = document.getElementById('canvasTabFiguras');
+  let ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.font = "30px Verdana";
   // Create gradient
-  var gradient = ctx.createLinearGradient(0, 0, c.width, 0);
+  let gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
   gradient.addColorStop("0.1", "magenta");
-  gradient.addColorStop("0.5", "yellow");
+  gradient.addColorStop("0.5", "blue");
   gradient.addColorStop("1.0", "red");
   // Fill with gradient
   ctx.fillStyle = gradient;
-  ctx.fillText("GANASTE!!!",c.width/2, c.height/2);
-  ctxp.drawImage(c,0,0);
+  ctx.fillText("GANASTE!!!",canvas.width/2, canvas.height/2);
   let msj = document.getElementById('msj');
   detener();
   msj.innerHTML = 'FELICIDADES GANASTE';
@@ -439,6 +438,8 @@ let selecDificultad = document.getElementById('dificultad');
 selecDificultad.addEventListener("change" , setDificultad);
 
 function setDificultad(){
+  piezasColocadas = 0;
+  btn.setAttribute('class','hidden');
   let mensaje = document.getElementById('msj');
   mensaje.innerHTML = '';
   let tabFiguras = new ListFig();
@@ -467,10 +468,14 @@ function setDificultad(){
       detener();
       cargaCronometro();
       jugar(ctx,tabFiguras,figurasJuego,cantPiezaY,dificultad);
-            break;
+      break;
     default:
+     mensaje.innerHTML = '';
      cantPiezaY = 1;
+     detener();
+     cargaCronometro();
      jugar(ctx,tabFiguras,cantPiezaY,dificultad);
+     break;
   }
 }
 
