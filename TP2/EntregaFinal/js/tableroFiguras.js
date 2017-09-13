@@ -472,7 +472,6 @@ function setDificultad(){
     default:
      mensaje.innerHTML = '';
      cantPiezaY = 1;
-     detener();
      cargaCronometro();
      jugar(ctx,tabFiguras,cantPiezaY,dificultad);
      break;
