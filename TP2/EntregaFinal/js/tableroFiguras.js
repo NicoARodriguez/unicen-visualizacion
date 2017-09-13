@@ -439,6 +439,8 @@ let selecDificultad = document.getElementById('dificultad');
 selecDificultad.addEventListener("change" , setDificultad);
 
 function setDificultad(){
+  let mensaje = document.getElementById('msj');
+  mensaje.innerHTML = '';
   let tabFiguras = new ListFig();
   let figurasJuego = new ListFig();
   let canvas = document.getElementById('canvasTabFiguras');
@@ -447,17 +449,20 @@ function setDificultad(){
   switch (dificultad) {
     case 'easy':
       cantPiezaY = 1;
+      mensaje.innerHTML = '';
       detener();
       cargaCronometro();
       jugar(ctx,tabFiguras,figurasJuego,cantPiezaY,dificultad);
       break;
     case 'normal':
+       mensaje.innerHTML = '';
        cantPiezaY = 2;
        detener();
        cargaCronometro();
        jugar(ctx,tabFiguras,figurasJuego,cantPiezaY,dificultad);
       break;
     case 'hard':
+      mensaje.innerHTML = '';
       cantPiezaY = 3;
       detener();
       cargaCronometro();
