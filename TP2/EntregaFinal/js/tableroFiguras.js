@@ -225,7 +225,8 @@ function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
   function crearFigurasAleatorias(divisiones,cantPiezaX,cantPiezaY){
      let pieza = 0;
      let colorObj = new Color();
-     let salio = false;
+     let salioEstrella = false;
+     let salioCircle = false;
      let usados = new Array();
      let repeat = false;
      for (let px=0; px<cantPiezaX; px++){
@@ -234,21 +235,21 @@ function jugar(ctx4,tabFiguras,figurasJuego,cantPiezaY,dificultad){
          let figuraAzar = Math.round(Math.random() * (4 - 0) +0);
          let posX = Math.round(Math.random() * (500 - 100) + 100);
          let posY = Math.round(Math.random() * (500 - 100) + 100);
-         if (figuraAzar == 1 && salio==false){
+         if (figuraAzar == 1 && salioEstrella==false){
            let estrella = new Estrella(divisiones[px][py].width,
              divisiones[px][py].height,60,5,2,false,'#ffffff',ctx4);
              tabFiguras.agregar(estrella);
             let estrellaCopy = new Estrella(posX,posY,60,5,2,false,color,ctx4);
             figurasJuego.agregar(estrellaCopy);
-            salio=true;
+            salioEstrella=true;
          }
-         else if (figuraAzar == 2 && salio==false){
+         else if (figuraAzar == 2 && salioCircle==false){
            let circulo = new Circle(divisiones[px][py].width,
              divisiones[px][py].height,60,'#ffffff',false,ctx4);
              tabFiguras.agregar(circulo);
             let circuloCopy = new Circle(posX,posY,60,color,false,ctx4);
             figurasJuego.agregar(circuloCopy);
-            salio=true;
+            salioCircle=true;
          }
          else{
          let lados = Math.round(Math.random() * (16 - 3) + 3);
